@@ -21,7 +21,7 @@ class MemberServiceIntegrationTest {
   MemberRepository memberRepository;
 
   @Test
-  void 회원가입() {
+  void 회원가입() throws Exception {
     // given
     Member member = new Member();
     member.setName("hello");
@@ -30,12 +30,13 @@ class MemberServiceIntegrationTest {
     Long saveId = memberService.join(member);
 
     // then
-    Member findMember = memberService.findOne(saveId).get();
+//    Member findMember = memberService.findOne(saveId).get();
+    Member findMember = memberRepository.findById(saveId).get();
     assertThat(member.getName()).isEqualTo(findMember.getName());
   }
 
   @Test
-  public void 중복_회원_예외() {
+  public void 중복_회원_예외() throws Exception {
     // given
     Member member1 = new Member();
     member1.setName("spring");
@@ -55,11 +56,4 @@ class MemberServiceIntegrationTest {
 //    }
   }
 
-  @Test
-  void findMembers() {
-  }
-
-  @Test
-  void findOne() {
-  }
 }
